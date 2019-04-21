@@ -6,12 +6,8 @@ should have keyboard shortcut
 control-q should save
 control-q should kill cleint or normal one
 
-save on focus lost
-
 TODO: precompile all this stuff
 loading of all local elisp files
-
-TODO: handle putting temp files somewhere
 
 TODO:
 ;; clean up obsolete buffers automatically

@@ -121,6 +121,14 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun save-all ()
+  (interactive)
+  (save-some-buffers t))
+  
+(add-hook 'focus-out-hook 'save-all)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; enable y/n answers
 (fset 'yes-or-no-p 'y-or-n-p)
 
