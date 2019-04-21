@@ -26,13 +26,20 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq-default cursor-type '(bar . 2))
-(set-cursor-color "#ffffff")
+;; To prevent emacsclient getting settings from elsewhere
+(require 'frame)
+(defun set-cursor-hook (frame)
+  (modify-frame-parameters
+   frame (list (cons 'cursor-color "#fff") ; DeepSkyBlue is a nice color too
+               (cons 'cursor-type '(bar . 3)))))
+
+(add-hook 'after-make-frame-functions 'set-cursor-hook)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 
-(toggle-scroll-bar -1)
+(customize-set-variable 'scroll-bar-mode nil)
+(customize-set-variable 'horizontal-scroll-bar-mode nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -99,9 +106,16 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun my-quit ()
+  (interactive)
+  (save-some-buffers t)
+  (if (daemonp)
+      (delete-frame)
+    (kill-emacs)))
+
+;; Save and close emacs (without killing daemon)
 (global-unset-key (kbd "C-q"))
-(global-set-key (kbd "C-q") 'delete-frame)
-;; TODO: this should save buffers first, and work in emacs (not just emacsClient)
+(global-set-key (kbd "C-q") 'my-quit)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -118,6 +132,11 @@
       `(("." . ,(concat user-emacs-directory "auto-backups"))))
 (setq auto-save-file-name-transforms
       `((".*" ,(concat user-emacs-directory "auto-backups") t)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; To change the expiration date of all buffers to 1 day
+(setq clean-buffer-list-delay-general 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

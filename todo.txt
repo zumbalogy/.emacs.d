@@ -3,15 +3,9 @@ modules and stuff
 emacsclient and all that
 deamon should start up on start up
 should have keyboard shortcut
-control-q should save
-control-q should kill cleint or normal one
 
 TODO: precompile all this stuff
 loading of all local elisp files
-
-TODO:
-;; clean up obsolete buffers automatically
-(require 'midnight)
 
 TODO:
 handle linux PATH variable thing like prelude does
@@ -28,3 +22,5 @@ toggle comment section
 put this in git/hub
 
 control-l should expand to all current lines if there is a selection
+
+emacs should remember what what previously opened. 
