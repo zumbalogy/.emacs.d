@@ -107,7 +107,7 @@
 
 ;; saveplace remembers the location in a file when saving files
 (setq save-place-file
-      (expand-file-name "saveplace" (concat user-emacs-directory "backups")))
+      (expand-file-name "saveplace" (concat user-emacs-directory "auto-backups")))
 
 (save-place-mode 1)
 
@@ -115,9 +115,9 @@
 
 ;; Save backups in ~/.emacs.d/backups
 (setq backup-directory-alist
-      `(("." . ,(concat user-emacs-directory "backups"))))
+      `(("." . ,(concat user-emacs-directory "auto-backups"))))
 (setq auto-save-file-name-transforms
-      `((".*" ,(concat user-emacs-directory "backups") t)))
+      `((".*" ,(concat user-emacs-directory "auto-backups") t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
