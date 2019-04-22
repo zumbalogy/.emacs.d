@@ -67,7 +67,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ;; scroll one line at a time (less "jumpy" than defaults)
 ;; (setq scroll-conservatively 10000)
 ;; (setq auto-window-vscroll nil)
 ;; (setq scroll-margin 3)
@@ -99,7 +98,6 @@
            ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (setq-default display-line-numbers-current-absolute nil
               display-line-numbers-width 4
@@ -277,25 +275,25 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun duplicate-region (&optional n)
-  (interactive "*p")
-  (let ((use-region (use-region-p)))
-    (save-excursion
-      (let ((text (if use-region
-                      (buffer-substring (region-beginning) (region-end))
-                    (prog1 (thing-at-point 'line)
-                      (end-of-line)
-                      (if (< 0 (forward-line 1))
-                          (newline))))))
-        (dotimes (i (abs (or n 1)))
-          (insert text))))
-    (if use-region nil
-      (let ((pos (- (point) (line-beginning-position)))) ; Save column
-        (forward-line 1)
-        (forward-char pos)))))
+(defun my-dup (arg)
+  (interactive "p")
+  (let (beg end (origin (point)))
+    (if (and mark-active (> (point) (mark)))
+        (exchange-point-and-mark))
+    (setq beg (line-beginning-position))
+    (if mark-active
+        (exchange-point-and-mark))
+    (setq end (line-end-position))
+    (let ((region (buffer-substring-no-properties beg end)))
+      (dotimes (i arg)
+        (goto-char end)
+        (newline)
+        (insert region)
+        (setq end (point)))
+      (goto-char (+ origin
+                    arg
+                    (* arg
+                       (length region)))))))
 
 (global-unset-key (kbd "C-S-d"))
-(global-set-key (kbd "C-S-d") 'duplicate-region)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
+(global-set-key (kbd "C-S-d") 'my-dup)

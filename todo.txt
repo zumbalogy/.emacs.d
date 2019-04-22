@@ -23,3 +23,5 @@ toggle comment section
 control-l should expand to all current lines if there is a selection
 
 emacs should remember what what previously opened. 
+
+automatically clean up trailing whitespace on lines and the file
