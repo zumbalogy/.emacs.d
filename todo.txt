@@ -3,6 +3,7 @@ modules and stuff
 emacsclient and all that
 deamon should start up on start up
 should have keyboard shortcut
+(and this and .profile part should be documented in a readme)
 
 TODO: precompile all this stuff
 loading of all local elisp files
@@ -18,8 +19,6 @@ setup good todo/notes/scratch system (org mode?)
 shift-tab should unindent
 
 toggle comment section
-
-put this in git/hub
 
 control-l should expand to all current lines if there is a selection
 

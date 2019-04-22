@@ -26,6 +26,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(setq-default cursor-type '(bar . 3))
+(set-cursor-color "#fff")
+
 ;; To prevent emacsclient getting settings from elsewhere
 (require 'frame)
 (defun set-cursor-hook (frame)
@@ -295,3 +298,4 @@
 (global-set-key (kbd "C-S-d") 'duplicate-region)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
