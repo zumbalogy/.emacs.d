@@ -29,14 +29,15 @@
 (setq-default cursor-type '(bar . 3))
 (set-cursor-color "#fff")
 
-;; To prevent emacsclient getting settings from elsewhere
+;; To prevent emacsclient getting settings from elsewhere or not listening
 (require 'frame)
-(defun set-cursor-hook (frame)
+(defun after-creation-hook (frame)
+ ; (global-display-line-numbers-mode 1)
   (modify-frame-parameters
    frame (list (cons 'cursor-color "#fff") ; DeepSkyBlue is a nice color too
                (cons 'cursor-type '(bar . 3)))))
 
-(add-hook 'after-make-frame-functions 'set-cursor-hook)
+(add-hook 'after-make-frame-functions 'after-creation-hook)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
@@ -88,7 +89,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(set-face-attribute 'default nil :height 128)
+(set-face-attribute 'default nil :height 136)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -104,7 +105,7 @@
               display-line-numbers-widen t)
 
 (global-display-line-numbers-mode)
-
+  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun my-quit ()
@@ -297,3 +298,9 @@
 
 (global-unset-key (kbd "C-S-d"))
 (global-set-key (kbd "C-S-d") 'my-dup)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; tab inserts 2 spaces
+(global-set-key "\t" (lambda ()
+                       (interactive) (insert-char 32 2)))
